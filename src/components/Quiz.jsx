@@ -22,40 +22,51 @@ function Quiz(){
     }, []);
     
     useEffect(() => {
-  if (showresult) {
-    return;
-  }
-
-  const timer = setInterval(() => {
-    setTimeLeft((time) => {
-      if (time === 1) {
-        setShowResult(true);
-        return 0;
-      }
-
-      return time - 1;
-    });
-  }, 1000);
-
-  return () => {
-    clearInterval(timer);
-  };
-}, [showresult]);
+          if (showresult) {
+            return;
+          }
+          const timer = setInterval(() => {
+            setTimeLeft((time) => {
+              if (time === 1) {
+                setShowResult(true);
+                return 0;
+              }
+            return time - 1;
+          });
+        }, 1000);
+          return () => {
+            clearInterval(timer);
+          };
+    }, [showresult]);
 
     if (showresult) {
-    let score = 0;
+      const timeTaken = 60 - timeleft;
+        let score = 0;
+        let correct=0;
+        let skipped=0;
+        let wrong=0;
 
-    for (let i = 0; i < quizQuestions.length; i++) {
-        if (quizQuestions[i].answer === answers[i]) {
-            score += 1;
+        for (let i = 0; i < quizQuestions.length; i++) {
+            if(!answers[i]){
+              skipped+=1;
+            }
+            else if (quizQuestions[i].answer === answers[i]) {
+                score += 1;
+                correct+=1;
+            }else{
+              wrong+=1;
+            }
         }
-    }
 
     return (
         <>
             <h1>Quiz Finished!</h1>
             <p>Your Score: {score} out of {questions.length}</p>
             <p>Percentage : {(score/questions.length)*100}%</p>
+            <p>✅ Correct: {correct}</p>
+            <p>❌ Wrong: {wrong}</p>
+            <p>⚪ Skipped: {skipped}</p>
+            <p>⏱ Time Taken: {timeTaken} seconds</p>
             <div>
   {quizQuestions.map((question, index) => (
     <div key={question.id}>
