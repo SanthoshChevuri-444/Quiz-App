@@ -1,0 +1,158 @@
+.review-container {
+  width: min(800px, 90%);
+  margin: 40px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  color: black;
+}
+
+.review-title {
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 36px;
+  color: #111827;
+}
+
+.review-question {
+  margin-bottom: 40px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.review-question-number {
+  margin-bottom: 12px;
+  color: #555;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.review-question-text {
+  margin-bottom: 25px;
+  color: black;
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.review-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 18px;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.option-letter {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid #d1d5db;
+  border-radius: 7px;
+  font-weight: bold;
+}
+
+/* User selected the correct answer */
+.correct-selected {
+  color: #15803d;
+  background: #dcfce7;
+  border-color: #86efac;
+}
+
+.correct-selected .option-letter {
+  border-color: #22c55e;
+}
+
+/* User selected a wrong answer */
+.wrong-selected {
+  color: #dc2626;
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.wrong-selected .option-letter {
+  border-color: #ef4444;
+}
+
+/* Actual correct option when user selected incorrectly */
+.correct-answer {
+  color: #15803d;
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.correct-answer .option-letter {
+  border-color: #22c55e;
+}
+
+.answer-status {
+  margin-top: 16px;
+  text-align: right;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.correct-status {
+  color: #15803d;
+}
+
+.wrong-status {
+  color: #dc2626;
+}
+
+.skipped-status {
+  color: #6b7280;
+}
+
+.back-result-btn {
+  display: block;
+  margin: 25px auto 0;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-result-btn:hover {
+  background: #1d4ed8;
+  transform: scale(1.03);
+}
+
+@media (max-width: 700px) {
+  .review-container {
+    width: 92%;
+    padding: 25px;
+  }
+
+  .review-title {
+    font-size: 30px;
+  }
+
+  .review-question-text {
+    font-size: 21px;
+  }
+
+  .review-option {
+    font-size: 16px;
+  }
+}

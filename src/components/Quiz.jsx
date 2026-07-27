@@ -1,25 +1,21 @@
-import questions from "../data/questions";
+
 import {useState} from 'react'
 import { useEffect } from "react";
 import "./Quiz.css";
 
 
-function Quiz(){
+function Quiz({
+  quizQuestions,
+  answers,
+  setAnswers,
+  openReview,
+}) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [timeleft,setTimeLeft]=useState(60)
-    const [answers, setAnswers] = useState({});
     const [showresult, setShowResult] = useState(false);
-    const [quizQuestions, setQuizQuestions] = useState([]);
 
     const progress = quizQuestions.length === 0 ? 0 : ((currentQuestion + 1) / quizQuestions.length) * 100;
-    useEffect(() => {
-        const shuffled = [...questions];
-        shuffled.sort(() => Math.random() - 0.5);
-        shuffled.forEach((question) => {
-            question.options.sort(() => Math.random() - 0.5);
-        });
-        setQuizQuestions(shuffled);
-    }, []);
+
     
     useEffect(() => {
           if (showresult) {
@@ -41,7 +37,7 @@ function Quiz(){
 
     if (showresult) {
       const timeTaken = 60 - timeleft;
-        let score = 0;
+        
         let correct=0;
         let skipped=0;
         let wrong=0;
@@ -51,7 +47,7 @@ function Quiz(){
               skipped+=1;
             }
             else if (quizQuestions[i].answer === answers[i]) {
-                score += 1;
+                
                 correct+=1;
             }else{
               wrong+=1;
@@ -61,13 +57,16 @@ function Quiz(){
     return (
         <>
             <h1>Quiz Finished!</h1>
-            <p>Your Score: {score} out of {questions.length}</p>
-            <p>Percentage : {(score/questions.length)*100}%</p>
+            <p>Your Score: {correct} out of {quizQuestions.length}</p>
+            <p>Percentage : {(correct/quizQuestions.length)*100}%</p>
             <p>✅ Correct: {correct}</p>
             <p>❌ Wrong: {wrong}</p>
             <p>⚪ Skipped: {skipped}</p>
             <p>⏱ Time Taken: {timeTaken} seconds</p>
-            <div>
+            <button onClick={openReview}>
+  Review Quiz
+</button>
+            {/* <div>
   {quizQuestions.map((question, index) => (
     <div key={question.id}>
     <h3
@@ -108,7 +107,7 @@ function Quiz(){
 </p>
     </div>
   ))}
-</div>
+</div> */}
             <button onClick={() => {
                 setShowResult(false);
                 setCurrentQuestion(0);
@@ -152,21 +151,22 @@ if (quizQuestions.length === 0) {
         {quizQuestions[currentQuestion].options.map((option, index) => (
     <label key={index}>
       <input
-        type="radio"
-        name="answer"
-        value={option}
-        checked={answers[currentQuestion] === option}
-        onChange={(e) =>
-          setAnswers({
-            ...answers,
-            [currentQuestion]: e.target.value,
-          })
-        }
-      />
+  type="radio"
+  name="answer"
+  value={option}
+  checked={answers[currentQuestion] === option}
+  onChange={(e) =>
+    setAnswers({
+      ...answers,
+      [currentQuestion]: e.target.value,
+    })
+  }
+/>
       {option}
     </label>
   ))}
 </div>
+
 
     </div>
     
@@ -195,6 +195,7 @@ if (quizQuestions.length === 0) {
       >
         {currentQuestion === quizQuestions.length - 1 ? "Finish" : "Next"}
       </button>
+      
     </div>
 
 
