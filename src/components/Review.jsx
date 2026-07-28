@@ -10,12 +10,14 @@ function Review({ quizQuestions, answers, backToResult }) {
       {quizQuestions.map((question, questionIndex) => {
         const userAnswer = answers[questionIndex];
         const correctAnswer = question.answer;
-        const isQuestionCorrect = userAnswer === correctAnswer;
+
+        const isCorrect = userAnswer === correctAnswer;
+        const isSkipped = !userAnswer;
 
         return (
           <div className="review-question" key={question.id}>
             <p className="review-question-number">
-              Question {questionIndex + 1}/{quizQuestions.length}
+              Question {questionIndex + 1} / {quizQuestions.length}
             </p>
 
             <h2 className="review-question-text">
@@ -33,18 +35,24 @@ function Review({ quizQuestions, answers, backToResult }) {
                   optionClass += " correct-selected";
                 } else if (isUserAnswer && !isCorrectAnswer) {
                   optionClass += " wrong-selected";
-                } else if (!isQuestionCorrect && isCorrectAnswer) {
+                } else if (!isCorrect && isCorrectAnswer) {
                   optionClass += " correct-answer";
+                }
+
+                let optionSymbol = optionLetters[optionIndex];
+
+                if (isUserAnswer && isCorrectAnswer) {
+                  optionSymbol = "✓";
+                } else if (isUserAnswer && !isCorrectAnswer) {
+                  optionSymbol = "✕";
+                } else if (!isCorrect && isCorrectAnswer) {
+                  optionSymbol = "✓";
                 }
 
                 return (
                   <div className={optionClass} key={option}>
                     <span className="option-letter">
-                      {isUserAnswer && isCorrectAnswer
-                        ? "✓"
-                        : isUserAnswer && !isCorrectAnswer
-                        ? "✕"
-                        : optionLetters[optionIndex]}
+                      {optionSymbol}
                     </span>
 
                     <span>{option}</span>
@@ -55,22 +63,27 @@ function Review({ quizQuestions, answers, backToResult }) {
 
             <p
               className={
-                isQuestionCorrect
+                isCorrect
                   ? "answer-status correct-status"
+                  : isSkipped
+                  ? "answer-status skipped-status"
                   : "answer-status wrong-status"
               }
             >
-              {isQuestionCorrect
+              {isCorrect
                 ? "Correct Answer"
-                : userAnswer
-                ? "Incorrect Answer"
-                : "Not Answered"}
+                : isSkipped
+                ? "Not Answered"
+                : "Incorrect Answer"}
             </p>
           </div>
         );
       })}
 
-      <button className="back-result-btn" onClick={backToResult}>
+      <button
+        className="back-result-btn"
+        onClick={backToResult}
+      >
         Back to Result
       </button>
     </div>
