@@ -263,3 +263,9 @@
 
   cursor: pointer;
 }
+.quiz-title {
+  color: #111827;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
