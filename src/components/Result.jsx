@@ -6,6 +6,7 @@ function Result({
   timeLeft,
   showReview,
   restartQuiz,
+  goHome,
 }) {
   let correct = 0;
   let wrong = 0;
@@ -63,14 +64,18 @@ function Result({
       </div>
 
       <div className="result-buttons">
-        <button onClick={showReview}>
-          Review Quiz
-        </button>
+  <button onClick={showReview}>
+    Review Quiz
+  </button>
 
-        <button onClick={restartQuiz}>
-          Restart Quiz
-        </button>
-      </div>
+  <button onClick={restartQuiz}>
+    Restart Quiz
+  </button>
+
+  <button onClick={goHome}>
+    Home
+  </button>
+</div>
     </div>
   );
 }

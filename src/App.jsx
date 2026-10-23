@@ -139,12 +139,13 @@ function App() {
 
       {page === "result" && (
         <Result
-          quizQuestions={quizQuestions}
-          answers={answers}
-          timeLeft={timeLeft}
-          showReview={showReview}
-          restartQuiz={startQuiz}
-        />
+  quizQuestions={quizQuestions}
+  answers={answers}
+  timeLeft={timeLeft}
+  showReview={showReview}
+  restartQuiz={startQuiz}
+  goHome={() => setPage("home")}
+/>
       )}
 
       {page === "review" && (
